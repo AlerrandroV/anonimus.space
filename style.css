@@ -1,0 +1,413 @@
+/* =========================================
+   MATERIAL YOU (M3) THEME TOKENS
+   ========================================= */
+:root {
+	--md-sys-color-primary: #006874;
+	--md-sys-color-on-primary: #ffffff;
+	--md-sys-color-primary-container: #97f0ff;
+	--md-sys-color-on-primary-container: #001f24;
+
+	--md-sys-color-surface: #f8fdff;
+	--md-sys-color-on-surface: #191c1d;
+	--md-sys-color-surface-variant: #dbe4e6;
+	--md-sys-color-on-surface-variant: #3f484a;
+
+	--md-sys-color-outline: #6f797a;
+	--md-sys-color-outline-variant: #bfc8ca;
+
+	--bg-color: var(--md-sys-color-surface);
+	--text-color: var(--md-sys-color-on-surface);
+
+	--md-sys-color-surface-container-lowest: #ffffff;
+	--md-sys-color-surface-container-low: #f2f7fa;
+	--md-sys-color-surface-container: #eceeef;
+	--md-sys-color-surface-container-high: #e6e8e9;
+	--md-sys-color-surface-container-highest: #e0e2e3;
+}
+
+body.dark-theme {
+	--md-sys-color-primary: #4fd8eb;
+	--md-sys-color-on-primary: #00363d;
+	--md-sys-color-primary-container: #004f58;
+	--md-sys-color-on-primary-container: #97f0ff;
+
+	--md-sys-color-surface: #191c1d;
+	--md-sys-color-on-surface: #e1e3e3;
+	--md-sys-color-surface-variant: #3f484a;
+	--md-sys-color-on-surface-variant: #bfc8ca;
+
+	--md-sys-color-outline: #899294;
+	--md-sys-color-outline-variant: #3f484a;
+
+	--bg-color: var(--md-sys-color-surface);
+	--text-color: var(--md-sys-color-on-surface);
+
+	--md-sys-color-surface-container-lowest: #0f1112;
+	--md-sys-color-surface-container-low: #1d2021;
+	--md-sys-color-surface-container: #212425;
+	--md-sys-color-surface-container-high: #2b2e2f;
+	--md-sys-color-surface-container-highest: #36393a;
+}
+
+/* =========================================
+   REGRAS DE SIMULAÇÃO DE APP NATIVO
+   ========================================= */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+md-outlined-text-field, input, textarea {
+	user-select: auto;
+	-webkit-user-select: auto;
+}
+
+img {
+	pointer-events: none;
+}
+
+md-icon {
+	font-family: 'Material Symbols Outlined' !important;
+	vertical-align: middle;
+	line-height: 1;
+	vertical-align: middle;
+	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+md-icon,
+.material-symbols-outlined {
+	line-height: 1 !important;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	overflow: visible !important;
+}
+
+html, body {
+	width: 100vw;
+	height: 100dvh;
+	overflow: hidden;
+	font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	display: flex;
+	flex-direction: column;
+}
+
+/* =========================================
+   LAYOUT STRUCTURE
+   ========================================= */
+
+/* Top App Bar */
+.top-app-bar {
+	flex-shrink: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px;
+	background-color: var(--md-sys-color-surface);
+	color: var(--md-sys-color-on-surface);
+	z-index: 10;
+}
+
+.header-content {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.app-title {
+	font-size: 1.25rem;
+	font-weight: 500;
+}
+
+/* Corpo Rolável */
+.app-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 0 16px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
+	/* Scroll suave no iOS */
+}
+
+/* Contador de Usuários */
+.online-counter-wrapper {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+	margin-top: 8px;
+	flex-shrink: 0;
+}
+
+.online-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	background-color: var(--md-sys-color-surface-variant);
+	color: var(--md-sys-color-on-surface-variant);
+	border-radius: 16px;
+	font-size: 0.875rem;
+}
+
+.pulse-icon {
+	font-size: 18px;
+	color: var(--md-sys-color-primary);
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.4;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+/* Form e Inputs */
+.setup-form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.row-fields {
+	display: flex;
+	gap: 12px;
+	width: 100%;
+}
+
+.row-fields .form-field {
+	flex: 1;
+}
+
+.form-field {
+	width: 100%;
+}
+
+/* Caixa dos Termos */
+.terms-container {
+	background-color: var(--md-sys-color-surface-variant);
+	color: var(--md-sys-color-on-surface-variant);
+	padding: 16px;
+	border-radius: 12px;
+	font-size: 0.85rem;
+	line-height: 1.4;
+	border: 1px solid var(--md-sys-color-outline-variant);
+	margin-bottom: 24px;
+}
+
+.terms-container h2 {
+	font-size: 1rem;
+	margin-bottom: 12px;
+	color: var(--md-sys-color-primary);
+}
+
+.terms-container p {
+	margin-bottom: 12px;
+}
+
+/* =========================================
+   FOOTER FIXO (INFERIOR)
+   ========================================= */
+.app-footer {
+	flex-shrink: 0;
+	background-color: var(--md-sys-color-surface);
+	border-top: 1px solid var(--md-sys-color-outline-variant);
+	padding: 12px 16px calc(24px + env(safe-area-inset-bottom)) 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	z-index: 10;
+}
+
+/* Alinhamento do Checkbox */
+.checkbox-label {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	cursor: pointer;
+	width: 100%;
+}
+
+.checkbox-text {
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+/* Grade de Botões */
+.footer-buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+}
+
+.btn-action {
+	width: 100%;
+	height: 48px;
+	--md-filled-button-container-shape: 24px;
+	--md-filled-tonal-button-container-shape: 24px;
+}
+
+/* =========================================
+   FOTO DE PERFIL E CROPPER
+   ========================================= */
+.profile-pic-container {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 24px;
+	width: 100%;
+}
+
+.profile-pic-btn {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	border: 2px dashed var(--md-sys-color-primary);
+	background-color: var(--md-sys-color-surface-variant);
+	color: var(--md-sys-color-on-surface-variant);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+	transition: all 0.2s ease;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.profile-pic-btn:hover {
+	background-color: var(--md-sys-color-surface-container-highest);
+	border-style: solid;
+}
+
+.profile-pic-btn md-icon {
+	font-size: 32px;
+	margin-bottom: 4px;
+	z-index: 2;
+}
+
+.profile-pic-btn span {
+	font-size: 0.8rem;
+	font-weight: 500;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	z-index: 2;
+}
+
+/* Efeito Hover escurecido quando já tem foto */
+.profile-pic-btn.has-image::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	z-index: 1;
+}
+
+.profile-pic-btn.has-image md-icon,
+.profile-pic-btn.has-image span {
+	color: white;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.profile-pic-btn.has-image:hover::before,
+.profile-pic-btn.has-image:hover md-icon,
+.profile-pic-btn.has-image:hover span {
+	opacity: 1;
+}
+
+/* =========================================
+   ESTILOS DO POP-UP (CROPPER DIALOG)
+   ========================================= */
+#cropper-dialog {
+	margin: auto;
+	width: auto;
+	max-width: 80vw;
+	max-height: 80vh;
+	min-height: 80vw;
+	z-index: 2;
+}
+
+body:has(#cropper-dialog[open]) header,
+body:has(#cropper-dialog[open]) main,
+body:has(#cropper-dialog[open]) footer {
+	filter: blur(5px);
+	transition: filter 0.3s ease;
+}
+
+#cropper-dialog::part(container) {
+	padding: 0;
+	border-radius: 20px;
+	overflow: hidden;
+
+}
+
+#cropper-dialog::part(content) {
+	padding: 0;
+	overflow: hidden;
+}
+
+#cropper-dialog::part(actions) {
+	padding: 16px 24px;
+}
+
+#cropper-dialog::backdrop {
+	background: rgb(0 0 0 / .35);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+}
+
+.cropper-dialog-content {
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	overflow: hidden;
+}
+
+.img-container {
+	flex: 1;
+
+	position: relative;
+	overflow: hidden;
+
+	background: #111;
+}
+
+#image-to-crop {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+#btn-cancel-crop,
+#btn-confirm-crop {
+	padding: 5px 15px;
+}

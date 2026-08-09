@@ -1,0 +1,642 @@
+
+/* ==========================================================================
+   1. CORES, VARIÁVEIS E CONFIGURAÇÃO GLOBAL (MATERIAL YOU M3)
+   ========================================================================== */
+:root {
+	/* Paleta de Cores Dinâmicas Base do Sistema */
+	--md-sys-color-primary: #0b57d0;
+	--md-sys-color-on-primary: #ffffff;
+	--md-sys-color-primary-container: #d3e3fd;
+	--md-sys-color-on-primary-container: #041e49;
+	
+	--md-sys-color-secondary: #00639b;
+	--md-sys-color-on-secondary: #ffffff;
+	--md-sys-color-secondary-container: #c2e7ff;
+	--md-sys-color-on-secondary-container: #001d35;
+	
+	--md-sys-color-error: #b3261e;
+	--md-sys-color-on-error: #ffffff;
+	--md-sys-color-error-container: #f9dedc;
+	--md-sys-color-on-error-container: #410e0b;
+
+	--md-sys-color-surface: #fdfbff;
+	--md-sys-color-on-surface: #1a1b1f;
+	--md-sys-color-on-surface-variant: #44474e;
+	
+	--md-sys-color-surface-container: #f2f0f4;
+	--md-sys-color-surface-container-low: #f7f5f9;
+	--md-sys-color-surface-container-high: #eceef4;
+	--md-sys-color-surface-container-highest: #e3e2e6;
+	
+	--md-sys-color-outline: #74777f;
+	--md-sys-color-outline-variant: #c4c6d0;
+	
+	/* Fontes e Tipografia */
+	--md-sys-typescale-body-large: 16px;
+	--md-sys-typescale-title-large: 22px;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--md-sys-color-surface);
+	color: var(--md-sys-color-on-surface);
+	font-family: 'Roboto', sans-serif;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden; 
+}
+
+/* ==========================================================================
+   2. TELA CHEIA - ESTRUTURA DO CHAT
+   ========================================================================== */
+.chat-container {
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Ocupa 100% da altura da tela */
+	height: 100dvh; /* Suporte para telas móveis */
+	width: 100vw;
+	background-color: var(--md-sys-color-surface);
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--md-sys-color-surface);
+	color: var(--md-sys-color-on-surface);
+	font-family: 'Roboto', sans-serif;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden; 
+}
+
+/* ==========================================================================
+   3. TOP APP BAR (CABEÇALHO)
+   ========================================================================== */
+.top-app-bar {
+	display: flex;
+	align-items: center;
+	padding: 8px 16px;
+	background-color: var(--md-sys-color-surface-container);
+	color: var(--md-sys-color-on-surface);
+	box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+				0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+				0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+	z-index: 10;
+	flex-shrink: 0;
+}
+
+.chat-header-info {
+	display: flex;
+	align-items: center;
+	flex: 1;
+	gap: 12px;
+	margin-left: 8px;
+	cursor: pointer;
+}
+
+#chatTargetAvatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.chat-target-icon {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: var(--md-sys-color-secondary-container);
+	color: var(--md-sys-color-on-secondary-container);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.chat-target-name {
+	font-size: var(--md-sys-typescale-title-large);
+	font-weight: 500;
+	margin: 0;
+	line-height: 1.2;
+}
+
+.gender-icon {
+	font-size: 20px;
+	line-height: 1;
+	flex-shrink: 0;
+}
+
+.gender-icon.gender-male {
+	color: #2196f3; /* azul */
+}
+
+.gender-icon.gender-female {
+	color: #e91e8c; /* rosa */
+}
+
+.gender-icon.gender-unknown {
+	color: #9e9e9e; /* cinza */
+}
+
+/* ==========================================================================
+   4. ÁREA DE MENSAGENS
+   ========================================================================== */
+.chat-messages {
+	flex: 1;
+	padding: 16px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	background-color: var(--md-sys-color-surface);
+	flex-shrink: 0;
+}
+
+/* Balões com cantos assimétricos M3 */
+.message-bubble {
+	max-width: 80%;
+	padding: 12px 16px;
+	font-size: var(--md-sys-typescale-body-large);
+	line-height: 1.5;
+	word-wrap: break-word;
+	position: relative;
+}
+
+/* Mensagem Recebida (Esquerda) */
+.message-bubble.received {
+	align-self: flex-start;
+	background-color: var(--md-sys-color-surface-container-highest);
+	color: var(--md-sys-color-on-surface);
+	/* Arredondado nos 3 cantos, reto na origem (Material You tip) */
+	border-radius: 20px 20px 20px 4px;
+}
+
+/* Mensagem Enviada (Direita) */
+.message-bubble.sent {
+	align-self: flex-end;
+	background-color: var(--md-sys-color-primary-container);
+	color: var(--md-sys-color-on-primary-container);
+	border-radius: 20px 20px 4px 20px;
+}
+
+.message-bubble p {
+	margin: 0;
+}
+
+.message-bubble code {
+	font-family: 'Courier New', monospace;
+	background-color: rgba(0, 0, 0, 0.08);
+	padding: 2px 5px;
+	border-radius: 4px;
+	font-size: 0.9em;
+}
+
+.message-bubble.received code {
+	background-color: rgba(0, 0, 0, 0.06);
+}
+
+.message-bubble.sent code {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   5. BOTTOM APP BAR (ENTRADA DE MENSAGEM)
+   ========================================================================== */
+.bottom-app-bar {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 12px 16px;
+	background-color: var(--md-sys-color-surface-container-low);
+	padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+	border-top: 1px solid var(--md-sys-color-outline-variant);
+	z-index: 10;
+	flex-shrink: 0;
+}
+
+.footer-main-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+}
+
+.bottom-app-bar md-icon-button {
+	flex-shrink: 0;
+}
+
+.chat-input-wrapper {
+	flex: 1;
+	background-color: var(--md-sys-color-surface-container-highest);
+	border-radius: 24px;
+	padding: 12px 16px;
+	display: flex;
+	align-items: center;
+	min-height: 48px;
+}
+
+#chatInputMessage {
+	width: 100%;
+	border: none;
+	background: transparent;
+	color: var(--md-sys-color-on-surface);
+	font-size: var(--md-sys-typescale-body-large);
+	font-family: inherit;
+	resize: none;
+	outline: none;
+	line-height: 1.4;
+	overflow-y: hidden;
+}
+
+#chatInputMessage::placeholder {
+	color: var(--md-sys-color-on-surface-variant);
+}
+
+.btn-action-primary {
+	--md-icon-button-state-layer-color: var(--md-sys-color-primary);
+	--md-icon-button-hover-state-layer-color: var(--md-sys-color-primary);
+	color: var(--md-sys-color-primary);
+}
+
+/* ==========================================================================
+   6. DIALOG DE LOADING / PROCURANDO
+   ========================================================================== */
+.loading-dialog {
+	border: none;
+	border-radius: 28px;
+	background-color: var(--md-sys-color-surface-container-high);
+	color: var(--md-sys-color-on-surface);
+	padding: 24px;
+	box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.2), 0px 8px 16px 2px rgba(0, 0, 0, 0.14);
+}
+
+.loading-dialog::backdrop {
+	background: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(2px);
+}
+
+.loading-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 20px;
+}
+
+.loading-content p {
+	margin: 0;
+	font-size: var(--md-sys-typescale-body-large);
+	font-weight: 500;
+}
+
+/* ==========================================================================
+   7. ANIMAÇÕES DE BUSCA (MATCHMAKING)
+   ========================================================================== */
+
+/* Animação do texto piscando suavemente */
+@keyframes textPulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.4; }
+}
+
+/* Animação da lupa se movendo em direções aleatórias */
+@keyframes iconFloat {
+	0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+	20% { transform: translate(2px, -2px) scale(1.1) rotate(5deg); }
+	40% { transform: translate(-2px, 2px) scale(1) rotate(-5deg); }
+	60% { transform: translate(-2px, -2px) scale(1.1) rotate(5deg); }
+	80% { transform: translate(2px, 2px) scale(1) rotate(-5deg); }
+	100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+/* Essas classes só serão ativadas quando injetarmos a classe 'is-searching' 
+  na div do cabeçalho através do JavaScript 
+*/
+.chat-header-info.is-searching #chatTargetName {
+	animation: textPulse 1.5s infinite ease-in-out;
+}
+
+.chat-header-info.is-searching #chatTargetIconFallback span {
+	animation: iconFloat 2s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   8. GRAVAÇÃO DE ÁUDIO
+   ========================================================================== */
+.footer-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex: 1;
+	min-width: 0;
+}
+
+#btnActionChat {
+	touch-action: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.recording-footer {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	flex: 1;
+	min-width: 0;
+}
+
+.recording-row1 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+/* Estado "gravando": [Timer] [Onda] */
+.recording-row1 #recTimer { order: 1; }
+.recording-row1 #recWaveform { order: 2; }
+.recording-row1 #btnRecPlayPause { order: 3; }
+
+/* Estado "pausado": [Play/Pause] [Onda] [Timer] */
+.recording-row1.state-paused #btnRecPlayPause { order: 1; }
+.recording-row1.state-paused #recWaveform { order: 2; }
+.recording-row1.state-paused #recTimer { order: 3; }
+
+.rec-timer {
+	font-variant-numeric: tabular-nums;
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--md-sys-color-on-surface);
+	min-width: 30px;
+	flex-shrink: 0;
+}
+
+.rec-waveform {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	height: 28px;
+	overflow: hidden;
+}
+
+.wave-bar {
+	width: 3px;
+	min-height: 4px;
+	border-radius: 2px;
+	background-color: currentColor;
+	opacity: 0.35;
+	flex-shrink: 0;
+	transition: height 0.08s ease;
+}
+
+.wave-bar.played {
+	opacity: 1;
+}
+
+/* Onda do footer sempre na cor primária; opacidade indica progresso de reprodução da prévia */
+.rec-waveform .wave-bar {
+	background-color: var(--md-sys-color-primary);
+	opacity: 0.4;
+}
+
+.rec-waveform .wave-bar.played {
+	opacity: 1;
+}
+
+.recording-row2 {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.rec-cancel {
+	color: var(--md-sys-color-error);
+}
+
+.rec-toggle-btn {
+	flex: 1;
+	border: none;
+	background: transparent;
+	color: var(--md-sys-color-primary);
+	font-family: 'Roboto', sans-serif;
+	font-size: var(--md-sys-typescale-body-large);
+	font-weight: 500;
+	padding: 10px;
+	border-radius: 20px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.rec-toggle-btn:hover {
+	background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.rec-toggle-btn:active {
+	background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* Bolha de mensagem de áudio (reaproveita o formato 3+1 cantos das bolhas de texto) */
+.audio-bubble {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	min-width: 220px;
+	padding: 10px 14px;
+}
+
+.audio-play-btn,
+.audio-restart-btn {
+	border: none;
+	background: transparent;
+	color: currentColor;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+	cursor: pointer;
+	border-radius: 50%;
+	padding: 0;
+}
+
+.audio-play-btn:hover,
+.audio-restart-btn:hover {
+	background-color: rgba(0, 0, 0, 0.08);
+}
+
+.audio-timer {
+	font-variant-numeric: tabular-nums;
+	font-size: 13px;
+	min-width: 26px;
+	flex-shrink: 0;
+}
+
+.audio-waveform {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	height: 24px;
+	min-width: 80px;
+}
+
+/* ==========================================================================
+   9. ENVIO DE IMAGENS
+   ========================================================================== */
+
+/* Indicador de "arraste aqui" ao arrastar arquivos sobre a janela (desktop) */
+.chat-container.drag-over::after {
+	content: 'Solte as imagens aqui';
+	position: fixed;
+	inset: 0;
+	background: rgba(11, 87, 208, 0.15);
+	border: 3px dashed var(--md-sys-color-primary);
+	color: var(--md-sys-color-primary);
+	font-size: 20px;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 500;
+	pointer-events: none;
+}
+
+/* Tray de miniaturas selecionadas, acima da barra de input */
+.image-preview-tray {
+	display: flex;
+	gap: 8px;
+	overflow-x: auto;
+	padding-bottom: 2px;
+}
+
+.image-preview-card {
+	position: relative;
+	width: 64px;
+	height: 64px;
+	flex-shrink: 0;
+	border-radius: 12px;
+	overflow: hidden;
+	background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.image-preview-card img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.image-preview-remove {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	width: 20px;
+	height: 20px;
+	border: none;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.6);
+	color: #fff;
+	font-size: 14px;
+	line-height: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0;
+}
+
+/* Bolha de mensagem de imagem (mesmo formato 3+1 cantos das outras bolhas) */
+.image-bubble {
+	padding: 0;
+	overflow: hidden;
+}
+
+.image-bubble-photo {
+	width: min(240px, 60vw);
+	aspect-ratio: 1 / 1;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.image-bubble-photo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.image-bubble-caption {
+	margin: 0;
+	padding: 10px 14px;
+	font-size: var(--md-sys-typescale-body-large);
+	line-height: 1.4;
+}
+
+/* ==========================================================================
+   10. LIGHTBOX DE IMAGEM (POP-UP EM TELA CHEIA)
+   ========================================================================== */
+.image-lightbox {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.92);
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+}
+
+.lightbox-image-area {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	padding: 15px;
+	box-sizing: border-box;
+	touch-action: none; /* zoom só pelos botões, sem gesto de pinça */
+}
+
+#lightboxImage {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	touch-action: none;
+	user-select: none;
+	-webkit-user-drag: none;
+	transform-origin: center center;
+	will-change: transform;
+}
+
+.lightbox-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 12px;
+	padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+	background: rgba(0, 0, 0, 0.55);
+	flex-shrink: 0;
+}
+
+.lightbox-actions {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.image-lightbox md-icon-button {
+	color: #fff;
+	--md-icon-button-icon-color: #fff;
+	--md-icon-button-hover-state-layer-color: #fff;
+}
+

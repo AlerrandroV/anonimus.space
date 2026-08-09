@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
+	<title>Anonimus.space - Chat P2P</title>
+	
+	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+	
+	<link rel="stylesheet" href="chat.css">
+	
+	<script type="importmap">
+	{
+		"imports": {
+		"@material/web/": "https://esm.run/@material/web/"
+		}
+	}
+	</script>
+	<script type="module">
+		import '@material/web/all.js';
+	</script>
+</head>
+<body>
+	<main class="chat-container" id="chatScreen">
+		
+<header class="top-app-bar" id="chatTopBar">
+	<md-icon-button id="btnBackChat">
+		<md-icon>arrow_back</md-icon>
+	</md-icon-button>
+	
+	<div class="chat-header-info">
+		<img id="chatTargetAvatar" src="" alt="Avatar" style="display: none;">
+		<div class="chat-target-icon" id="chatTargetIconFallback">
+			<span class="material-symbols-outlined">person</span>
+		</div>
+		<h2 id="chatTargetName" class="chat-target-name">Procurando alguém...</h2>
+		<span id="chatTargetGenderIcon" class="material-symbols-outlined gender-icon" style="display: none;"></span>
+	</div>
+	
+	<div style="position: relative;">
+		<md-icon-button id="btnChatMenu">
+			<md-icon>more_vert</md-icon>
+		</md-icon-button>
+	</div>
+</header>
+
+<div class="chat-messages" id="chatMessagesArea">
+	</div>
+
+<footer class="bottom-app-bar" id="chatFooter">
+	<div id="imagePreviewTray" class="image-preview-tray" style="display: none;"></div>
+
+	<div class="footer-main-row">
+		<div id="normalFooterControls" class="footer-row">
+			<md-icon-button id="btnSkip" title="Pular">
+				<md-icon>skip_next</md-icon>
+			</md-icon-button>
+
+			<md-icon-button id="btnSendImage">
+				<md-icon>add_photo_alternate</md-icon>
+			</md-icon-button>
+			<input type="file" id="inputImagePicker" accept="image/*" multiple style="display: none;">
+
+			<div class="chat-input-wrapper">
+				<textarea id="chatInputMessage" placeholder="Mensagem" rows="1"></textarea>
+			</div>
+			
+			<md-icon-button id="btnActionChat" class="btn-action-primary">
+				<md-icon id="actionIcon">mic</md-icon>
+			</md-icon-button>
+		</div>
+
+		<div id="recordingFooterControls" class="recording-footer" style="display: none;">
+			<div class="recording-row1">
+				<md-icon-button id="btnRecPlayPause" class="rec-playpause" style="display: none;">
+					<md-icon>play_arrow</md-icon>
+				</md-icon-button>
+				<span id="recTimer" class="rec-timer">0"</span>
+				<div id="recWaveform" class="rec-waveform"></div>
+			</div>
+			<div class="recording-row2">
+				<md-icon-button id="btnRecCancel" class="rec-cancel">
+					<md-icon>delete</md-icon>
+				</md-icon-button>
+				<button id="btnRecToggle" type="button" class="rec-toggle-btn">Pausar gravação</button>
+				<md-icon-button id="btnRecSend" class="btn-action-primary">
+					<md-icon>send</md-icon>
+				</md-icon-button>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<div id="imageLightbox" class="image-lightbox" style="display: none;">
+	<div class="lightbox-image-area" id="lightboxImageArea">
+		<img id="lightboxImage" src="" alt="Imagem ampliada">
+	</div>
+	<footer class="lightbox-footer">
+		<md-icon-button id="btnLightboxClose">
+			<md-icon>close</md-icon>
+		</md-icon-button>
+		<div class="lightbox-actions">
+			<md-icon-button id="btnLightboxZoomOut">
+				<md-icon>zoom_out</md-icon>
+			</md-icon-button>
+			<md-icon-button id="btnLightboxZoomIn">
+				<md-icon>zoom_in</md-icon>
+			</md-icon-button>
+			<md-icon-button id="btnLightboxShare">
+				<md-icon>share</md-icon>
+			</md-icon-button>
+			<md-icon-button id="btnLightboxCopy">
+				<md-icon>content_copy</md-icon>
+			</md-icon-button>
+			<md-icon-button id="btnLightboxDownload">
+				<md-icon>download</md-icon>
+			</md-icon-button>
+		</div>
+	</footer>
+</div>
+
+		<dialog id="loadingDialog" class="loading-dialog">
+			<div class="loading-content">
+				<md-circular-progress indeterminate></md-circular-progress>
+				<p>Procurando alguém compatível...</p>
+				<md-text-button id="btnCancelSearch">Cancelar Busca</md-text-button>
+			</div>
+		</dialog>
+
+	</main>
+
+	<script type="module" src="chat.js"></script>
+</body>
+</html>
