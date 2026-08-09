@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+	<title>Anonimus.space</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
+	<link rel="stylesheet" href="style.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+	<script type="importmap">
+	{
+		"imports": {
+		"@material/web/": "https://esm.run/@material/web/"
+		}
+	}
+	</script>
+	<script type="module">
+		import '@material/web/all.js';
+	</script>
+</head>
+<body class="dark-theme">
+	<header class="top-app-bar">
+		<md-icon-button id="btn-theme">
+			<md-icon id="theme-icon">light_mode</md-icon>
+		</md-icon-button>
+		<h1 class="app-title">Anonimus.space</h1>
+		<div style="display: flex; align-items: center; gap: 5px; color: var(--md-sys-color-primary); font-family: 'Roboto', sans-serif; font-weight: 500;">
+			<md-icon style="font-size: 20px;">group</md-icon>
+			<span id="online-count">0</span>
+		</div>
+	</header>
+
+	<main class="app-content">
+		<form class="setup-form" id="match-form" onsubmit="event.preventDefault();">
+			<div class="profile-pic-container">
+				<button type="button" id="btn-profile-pic" class="profile-pic-btn" aria-label="Alterar foto de perfil">
+					<md-icon>add_a_photo</md-icon>
+					<span>Alterar foto</span>
+				</button>
+				<input type="file" id="input-profile-pic" accept="image/*" style="display: none;">
+			</div>
+
+			<md-outlined-text-field 
+				label="Seu Nome" 
+				value="Anonimus"
+				class="form-field">
+			</md-outlined-text-field>
+
+			<div class="row-fields">
+				<md-outlined-select id="select-gender" label="Meu gênero" class="form-field" menu-positioning="fixed">
+					<md-select-option value="neutro" selected>
+						<div slot="headline">Não informar</div>
+					</md-select-option>
+					<md-select-option value="masculino">
+						<div slot="headline">Masculino</div>
+					</md-select-option>
+					<md-select-option value="feminino">
+						<div slot="headline">Feminino</div>
+					</md-select-option>
+				</md-outlined-select>
+
+				<md-outlined-select id="select-interest" label="Interesse" class="form-field" menu-positioning="fixed">
+					<md-select-option value="neutro" selected>
+						<div slot="headline">Tanto faz</div>
+					</md-select-option>
+					<md-select-option value="masculino">
+						<div slot="headline">Masculino</div>
+					</md-select-option>
+					<md-select-option value="feminino">
+						<div slot="headline">Feminino</div>
+					</md-select-option>
+				</md-outlined-select>
+			</div>
+
+			<div class="terms-container">
+				<h2>Termos de Uso</h2>
+				<p><strong>1. Privacidade:</strong> O Anonimus.space é uma plataforma P2P. Suas mensagens não são armazenadas em nossos servidores. Ao fechar o app, a conversa desaparece permanentemente.</p>
+				<p><strong>2. Conduta:</strong> É terminantemente proibido o uso desta plataforma para atividades ilegais, assédio, spam ou compartilhamento de conteúdo ilícito. Respeite o próximo.</p>
+				<p><strong>3. Responsabilidade:</strong> O anonimato não isenta o usuário das leis vigentes. Denúncias podem gerar o banimento do dispositivo através de hashes criptografados.</p>
+				<p><strong>4. Limitação:</strong> O uso é por sua conta e risco. O sistema atua apenas como uma ponte tecnológica e não tem controle sobre o conteúdo enviado entre os pares.</p>
+			</div>
+		</form>
+	</main>
+
+	<footer class="app-footer">
+		<label class="checkbox-label">
+			<md-checkbox id="terms-checkbox" touch-target="wrapper"></md-checkbox>
+			<span class="checkbox-text">Li e concordo com os termos de uso do app</span>
+		</label>
+
+		<div class="footer-buttons">
+			<md-filled-button class="btn-action" id="btn-text-chat">
+				<md-icon slot="icon">chat</md-icon>
+				Chat de texto
+			</md-filled-button>
+
+			<md-filled-tonal-button class="btn-action" id="btn-video-chat" disabled>
+				<md-icon slot="icon">videocam_off</md-icon>
+				Chat de Vídeo (em breve)
+			</md-filled-tonal-button>
+		</div>
+	</footer>
+
+	<md-dialog id="cropper-dialog">
+		<div style="padding: 10px 25px;" slot="headline">Cortar Imagem</div>
+		<div slot="content" class="cropper-dialog-content">
+			<div class="img-container">
+				<img id="image-to-crop" src="" alt="Imagem a ser cortada">
+			</div>
+		</div>
+		<div style="padding: 10px; gap: 10px;" slot="actions">
+			<md-text-button id="btn-cancel-crop" type="button">Cancelar</md-text-button>
+			<md-filled-button id="btn-confirm-crop" type="button">Salvar Foto</md-filled-button>
+		</div>
+	</md-dialog>
+
+	<script>
+		const btnTheme = document.getElementById('btn-theme');
+		const themeIcon = document.getElementById('theme-icon');
+		const body = document.body;
+
+		btnTheme.addEventListener('click', () => {
+			body.classList.toggle('dark-theme');
+			if(body.classList.contains('dark-theme')) {
+				themeIcon.textContent = 'light_mode';
+			} else {
+				themeIcon.textContent = 'dark_mode';
+			}
+		});
+	</script>
+	<script type="module">
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+		import { getDatabase, ref, onValue, onDisconnect, set, push } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-database.js";
+		const firebaseConfig = {
+			apiKey: "AIzaSyD7ov1b8hi9vrWiNqGxIUlAbZKtvlt2IY0",
+			authDomain: "anonimus-27c23.firebaseapp.com",
+			databaseURL: "https://anonimus-27c23-default-rtdb.firebaseio.com",
+			projectId: "anonimus-27c23",
+			storageBucket: "anonimus-27c23.firebasestorage.app",
+			messagingSenderId: "471469525714",
+			appId: "1:471469525714:web:a93469102b6b89c18d7b0b"
+		};
+
+		const app = initializeApp(firebaseConfig);
+		const db = getDatabase(app); // Inicializa o banco
+		
+		// 1. Pegamos a referência do número na tela
+		const countDisplay = document.getElementById('online-count');
+		
+		// 2. Referências no Firebase
+		const onlineUsersRef = ref(db, 'usuarios_online'); // A "pasta" onde ficam os usuários
+		const connectedRef = ref(db, '.info/connected'); // Variável especial do Firebase que diz se VOCÊ está com internet
+		
+		// 3. Cria um espaço único para o usuário atual
+		const mySessionRef = push(onlineUsersRef);
+		
+		// 4. Monitora a própria conexão do usuário
+		onValue(connectedRef, (snap) => {
+			if (snap.val() === true) {
+				// Estamos conectados!
+				// A mágica acontece aqui: onDisconnect() avisa o servidor do Google para
+				// apagar a nossa sessão caso a gente feche a aba ou perca o sinal.
+				onDisconnect(mySessionRef).remove().then(() => {
+					// Se configurou o onDisconnect com sucesso, dizemos que estamos online
+					set(mySessionRef, true);
+				});
+			}
+		});
+		
+		// 5. Monitora a quantidade total de usuários na "pasta" usuarios_online
+		onValue(onlineUsersRef, (snap) => {
+			// Conta quantos "filhos" (usuários) existem dentro da pasta
+			const totalOnline = snap.size; 
+			
+			// Atualiza o texto na tela
+			if (countDisplay) {
+				countDisplay.innerText = totalOnline;
+			}
+		});
+</script>
+	<script type="module" src="script.js"></script>
+</body>
+</html>
