@@ -30,10 +30,41 @@
 	
 	--md-sys-color-outline: #74777f;
 	--md-sys-color-outline-variant: #c4c6d0;
-	
+
 	/* Fontes e Tipografia */
 	--md-sys-typescale-body-large: 16px;
 	--md-sys-typescale-title-large: 22px;
+}
+
+/* Variante escura — aplicada via classe 'dark-theme' na <html>, em conjunto
+   com a mesma classe/preferência salva usada na tela inicial (style.css) */
+:root.dark-theme {
+	--md-sys-color-primary: #a8c7fa;
+	--md-sys-color-on-primary: #062e6f;
+	--md-sys-color-primary-container: #0842a0;
+	--md-sys-color-on-primary-container: #d3e3fd;
+
+	--md-sys-color-secondary: #7fcfff;
+	--md-sys-color-on-secondary: #003355;
+	--md-sys-color-secondary-container: #004a77;
+	--md-sys-color-on-secondary-container: #c2e7ff;
+
+	--md-sys-color-error: #f2b8b5;
+	--md-sys-color-on-error: #601410;
+	--md-sys-color-error-container: #8c1d18;
+	--md-sys-color-on-error-container: #f9dedc;
+
+	--md-sys-color-surface: #1a1b1f;
+	--md-sys-color-on-surface: #e3e2e6;
+	--md-sys-color-on-surface-variant: #c4c6d0;
+
+	--md-sys-color-surface-container: #1f2024;
+	--md-sys-color-surface-container-low: #1a1b1f;
+	--md-sys-color-surface-container-high: #292a2e;
+	--md-sys-color-surface-container-highest: #343539;
+
+	--md-sys-color-outline: #8e9099;
+	--md-sys-color-outline-variant: #44474e;
 }
 
 *, *::before, *::after {

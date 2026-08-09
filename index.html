@@ -4,6 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 	<title>Anonimus.space</title>
+	<script>
+		// Aplica o tema salvo antes do CSS carregar, pra não "piscar" o tema errado.
+		// Sem preferência salva ainda, mantém o padrão escuro (mesmo comportamento de sempre).
+		(function() {
+			if (localStorage.getItem('anonimus_theme') === 'light') {
+				document.documentElement.classList.remove('dark-theme');
+			} else {
+				document.documentElement.classList.add('dark-theme');
+			}
+		})();
+	</script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
 	<link rel="stylesheet" href="style.css">
@@ -20,7 +31,7 @@
 		import '@material/web/all.js';
 	</script>
 </head>
-<body class="dark-theme">
+<body>
 	<header class="top-app-bar">
 		<md-icon-button id="btn-theme">
 			<md-icon id="theme-icon">light_mode</md-icon>
@@ -119,15 +130,17 @@
 	<script>
 		const btnTheme = document.getElementById('btn-theme');
 		const themeIcon = document.getElementById('theme-icon');
-		const body = document.body;
+		const root = document.documentElement;
+		const THEME_STORAGE_KEY = 'anonimus_theme';
+
+		// O tema já foi aplicado na <html> pelo script no <head>; só sincroniza o ícone.
+		themeIcon.textContent = root.classList.contains('dark-theme') ? 'light_mode' : 'dark_mode';
 
 		btnTheme.addEventListener('click', () => {
-			body.classList.toggle('dark-theme');
-			if(body.classList.contains('dark-theme')) {
-				themeIcon.textContent = 'light_mode';
-			} else {
-				themeIcon.textContent = 'dark_mode';
-			}
+			root.classList.toggle('dark-theme');
+			const isDark = root.classList.contains('dark-theme');
+			themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
+			localStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
 		});
 	</script>
 	<script type="module">

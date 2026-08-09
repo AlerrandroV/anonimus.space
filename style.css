@@ -25,7 +25,7 @@
 	--md-sys-color-surface-container-highest: #e0e2e3;
 }
 
-body.dark-theme {
+:root.dark-theme {
 	--md-sys-color-primary: #4fd8eb;
 	--md-sys-color-on-primary: #00363d;
 	--md-sys-color-primary-container: #004f58;
