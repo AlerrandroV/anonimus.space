@@ -4,7 +4,19 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
 	<title>Anonimus.space - Chat P2P</title>
-	
+
+	<script>
+		// Herda o mesmo tema escolhido/salvo na tela inicial (index.html),
+		// aplicado antes do CSS carregar pra não piscar o tema errado.
+		(function() {
+			if (localStorage.getItem('anonimus_theme') === 'light') {
+				document.documentElement.classList.remove('dark-theme');
+			} else {
+				document.documentElement.classList.add('dark-theme');
+			}
+		})();
+	</script>
+
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 	
 	<link rel="stylesheet" href="chat.css">
